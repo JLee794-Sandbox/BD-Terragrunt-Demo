@@ -15,10 +15,10 @@ provider "azurerm" {
 }
 
 terraform {
-    required_providers {
+  required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "~>2.71.0"
+      version = "2.38.0"
     }
     null = {
       source  = "hashicorp/null"
@@ -33,17 +33,19 @@ locals {
   # Load the site and environment-level shared values
   common_vars = read_terragrunt_config(find_in_parent_folders("common.hcl"))
   layer_vars = read_terragrunt_config(find_in_parent_folders("layer.hcl"))
-  env_vars = read_terragrunt_config(find_in_parent_folders("env.hcl"))
 
   # Load backend configuration from the scoped common.hcl configuration file
   backend_subscription_id             = local.env_vars.locals.backend_subscription_id
   backend_storage_resource_group_name = local.env_vars.locals.backend_storage_resource_group_name
   backend_storage_account_name        = local.env_vars.locals.backend_storage_account_name
 
-  # Set environment and layer based on pathing
-  #    Expected Structure: [environment]/[Layer]/[module to be deployed]/[module child elements]
-  environment = regex("^([a-zA-Z-_0-9]+)/", path_relative_to_include())[0]
-  layer = lower(regex("^${local.environment}/([a-zA-Z-_0-9]+)", path_relative_to_include())[0])
+  # Set layer based on pathing
+  #    Expected Structure: [Layer]/[module to be deployed]/[module child elements]
+  layer = lower(regex("^([a-zA-Z-_0-9]+)", path_relative_to_include())[0])
+
+  # Set environment based on the environment variable ENV, default to dev
+  environment = get_env("ENV", "dev")
+  env_vars = read_terragrunt_config(find_in_parent_folders("${local.environment}.hcl"))
 
   env_tags = merge(
     can(local.common_vars.locals["tags"]) ? local.common_vars.locals["tags"] : {},
@@ -64,7 +66,7 @@ remote_state {
     resource_group_name  = local.backend_storage_resource_group_name
     storage_account_name = local.backend_storage_account_name
     container_name       = "tfstate"
-    key                  = "${path_relative_to_include()}/terraform.tfstate"
+    key                  = "${path_relative_to_include()}/${local.environment}/terraform.tfstate"
   }
 }
 

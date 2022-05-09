@@ -5,7 +5,8 @@
 # ---------------------------------------------------------------------------------------------------------------------
 
 terraform {
-  source = "${local.module_repository}//module-azure-network-security-group"
+  # source = "${local.module_repository}//key-vault?ref=${local.module_repository_version}"
+  source = "${local.module_repository}//module-azure-naming"
 }
 
 include {
@@ -14,15 +15,11 @@ include {
 
 locals {
   common_vars       = read_terragrunt_config(find_in_parent_folders("common.hcl"))
-  shared_dependency_vars = read_terragrunt_config(find_in_parent_folders("shared-dependencies.hcl"))
-  module_repository = local.common_vars.locals.module_repository
+  layer_vars = read_terragrunt_config(find_in_parent_folders("layer.hcl"))
 
+  module_repository = local.common_vars.locals.module_repository
 }
 
-# Merge hierarchy is dictated bottom-up (meaning latter will overwrite the former)
-inputs = merge(
-  local.shared_dependency_vars.inputs,
-  {
-    name = lower(join("", ["nsgi-", local.shared_dependency_vars.inputs.name]))
-  }
-)
+inputs = {
+
+}

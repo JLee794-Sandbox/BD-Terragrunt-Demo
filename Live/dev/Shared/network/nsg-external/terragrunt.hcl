@@ -23,6 +23,6 @@ locals {
 inputs = merge(
   local.shared_dependency_vars.inputs,
   {
-    name = lower(join("", ["nsgi-", local.shared_dependency_vars.inputs.name]))
+    name = lower(join("", ["nsge-", local.shared_dependency_vars.inputs.name]))
   }
 )
