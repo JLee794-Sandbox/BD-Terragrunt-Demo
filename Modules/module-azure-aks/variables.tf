@@ -8,6 +8,7 @@ variable "location" {
 }
 
 variable "tags" {
+  type = map
   description = "A mapping of tags to assign to resource group"
   default     = {}
 }
@@ -91,16 +92,8 @@ variable "docker_bridge_cidr" {
   description = " IP address (in CIDR notation) used as the Docker bridge IP address on nodes."
 }
 
-variable "keyvault_name" {
-  description = "example: kvuisinfradeus001 - Specifies the name of the Key Vault where SSH key and KEK is stored."
-}
-
 variable "keyvault_id" {
   description = "keyvault ID"
-}
-
-variable "keyvault_resource_group_name" {
-  description = "example: rg-uis-infra-dev-eastus-001 - The name of the Resource Group in which the Key Vault exists."
 }
 
 variable "rg_id" {
@@ -117,3 +110,12 @@ variable "log_analytics_workspace_id" {
   description = "The ID of the Log Analytics Workspace which the OMS Agent should send data to."
   default     = null
 }
+
+# Variables below are not being used
+# variable "keyvault_name" {
+#   description = "example: kvuisinfradeus001 - Specifies the name of the Key Vault where SSH key and KEK is stored."
+# }
+
+# variable "keyvault_resource_group_name" {
+#   description = "example: rg-uis-infra-dev-eastus-001 - The name of the Resource Group in which the Key Vault exists."
+# }

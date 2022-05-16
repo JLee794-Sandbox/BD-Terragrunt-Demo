@@ -8,38 +8,6 @@ terraform {
   source = "${local.module_repository}//module-azure-vnet"
 }
 
-// dependency "azure-naming" {
-//   config_path = find_in_parent_folders("azure-naming")
-
-//   mock_outputs_allowed_terraform_commands = ["validate", "plan"]
-//   mock_outputs = {
-//     name = "rnd-uis-dev-eastus-01"
-//     short_name = "rnduisdeus01"
-//     tags = {
-//       "ConstCenterName" = "const-center1"
-//       "CostCenter" = "center1"
-//       "Department" = "rnd"
-//       "Environment" = "dev"
-//       "Location" = "eastus"
-//       "Product" = "test"
-//       "business_unit" = "MyBusiness"
-//       "owner" = "jinle@microsoft.com"
-//       "provisioner" = "terraform"
-//     }
-//   }
-// }
-
-// dependency "resource-group" {
-//   config_path = find_in_parent_folders("resource-group")
-//   // config_path = "../resource-group"
-
-//   mock_outputs_allowed_terraform_commands = ["validate", "plan"]
-//   mock_outputs = {
-//     location = "eastus"
-//     name = "rg-rnd-uis-dev-eastus-01"
-//   }
-// }
-
 include {
   path = find_in_parent_folders()
 }

@@ -1,3 +1,6 @@
+# Ignore local cache dir
+tmp
+
 # Local .terraform directories
 **/.terraform/*
 **/.terragrunt-cache

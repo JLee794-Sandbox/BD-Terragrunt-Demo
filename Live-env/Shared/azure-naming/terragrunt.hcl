@@ -21,5 +21,5 @@ locals {
 }
 
 inputs = {
-
+  // See common.hcl for the values passed into the azure naming module
 }

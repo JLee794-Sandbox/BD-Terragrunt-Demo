@@ -17,6 +17,7 @@ dependency "azure-naming" {
   mock_outputs = {
     name = "rnd-uis-dev-eastus-01"
     short_name = "rnduisdeus01"
+    location = "eastus"
     tags = {
       "ConstCenterName" = "const-center1"
       "CostCenter" = "center1"

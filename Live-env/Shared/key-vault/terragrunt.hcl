@@ -8,15 +8,17 @@
 # different version of the module in a specific environment.
 terraform {
   # source = "${local.module_repository}//key-vault?ref=${local.module_repository_version}"
-  source = "${local.module_repository}//module-azure-resource-group"
+  source = "${local.module_repository}//module-azure-key-vault"
 }
 
 dependency "azure-naming" {
-  config_path = find_in_parent_folders("Shared/azure-naming")
-  mock_outputs_allowed_terraform_commands = ["validate", "plan"]
+  config_path = find_in_parent_folders("azure-naming")
+  mock_outputs_allowed_terraform_commands = ["validate", "init"]
   mock_outputs = {
     name = "rnd-uis-dev-eastus-01"
     short_name = "rnduisdeus01"
+    location = "eastus"
+
     tags = {
       "ConstCenterName" = "const-center1"
       "CostCenter" = "center1"
@@ -31,6 +33,22 @@ dependency "azure-naming" {
   }
 }
 
+dependency "rg" {
+  config_path = find_in_parent_folders("resource-group")
+  mock_outputs_allowed_terraform_commands = ["validate", "init"]
+  mock_outputs = {
+    name = "rnd-uis-dev-eastus-01"
+  }
+}
+
+dependency "sa" {
+  config_path = find_in_parent_folders("storage-account")
+  mock_outputs_allowed_terraform_commands = ["validate", "init"]
+  mock_outputs = {
+    storage_account_id = "/some/mock/id/here"
+  }
+}
+
 include {
   path = find_in_parent_folders()
 }
@@ -40,8 +58,19 @@ locals {
   module_repository = local.common_vars.locals.module_repository
 }
 
+dependency "subnet-internal" {
+  config_path = "../../Network/subnet-internal"
+
+  mock_outputs_allowed_terraform_commands = ["validate", "init"]
+  mock_outputs = {
+    id = "/some/mock/id/here"
+  }
+}
+
 inputs = {
-  name = dependency.azure-naming.outputs.name
+  key_vault_name      = dependency.azure-naming.outputs.short_name
+  location                        = dependency.azure-naming.outputs.location
+  resource_group_name             = dependency.rg.outputs.name
   tags = merge(
     {
 

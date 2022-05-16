@@ -13,10 +13,11 @@ terraform {
 
 dependency "azure-naming" {
   config_path = find_in_parent_folders("Shared/azure-naming")
-  mock_outputs_allowed_terraform_commands = ["validate", "plan"]
+  mock_outputs_allowed_terraform_commands = ["validate", "init"]
   mock_outputs = {
     name = "rnd-uis-dev-eastus-01"
     short_name = "rnduisdeus01"
+    location = "eastus"
     tags = {
       "ConstCenterName" = "const-center1"
       "CostCenter" = "center1"

@@ -4,7 +4,7 @@ locals {
 }
 
 resource "azurerm_storage_account" "storage_account" {
-  count                     = var.create_storage_account ? 1 : 0
+  count                     = var.create_storage_account == true ? 1 : 0
   name                      = lower(join("", ["st", format("%v", var.name)]))
   resource_group_name       = var.resource_group_name
   location                  = var.location
@@ -28,14 +28,14 @@ resource "azurerm_storage_account" "storage_account" {
 }
 
 resource "azurerm_storage_share" "storage_share" {
-  count                = var.create_storage_share ? 1 : 0
+  count                = var.create_storage_share == true ? 1 : 0
   name                 = lower(join("", ["st", format("%v", var.name), "-pvc"]))
   storage_account_name = azurerm_storage_account.storage_account[0].name
   quota                = var.storage_share_quota
 }
 
 resource "azurerm_storage_container" "example" {
-  count                 = var.create_storage_account ? 1 : 0
+  count                 = var.create_storage_account == true ? 1 : 0
   name                  = var.container_name
   storage_account_name  = azurerm_storage_account.storage_account[0].name
   container_access_type = "private"

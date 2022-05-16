@@ -11,7 +11,7 @@ variable "resource_group_name" {
 }
 
 variable "tags" {
-  type = map(string)
+  type = map
   description = "A mapping of tags to assign"
   default     = {}
 }

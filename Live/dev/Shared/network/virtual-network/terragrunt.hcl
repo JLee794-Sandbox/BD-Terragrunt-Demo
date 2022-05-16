@@ -15,6 +15,7 @@ terraform {
 //   mock_outputs = {
 //     name = "rnd-uis-dev-eastus-01"
 //     short_name = "rnduisdeus01"
+    location = "eastus"
 //     tags = {
 //       "ConstCenterName" = "const-center1"
 //       "CostCenter" = "center1"
@@ -31,7 +32,7 @@ terraform {
 
 // dependency "resource-group" {
 //   config_path = find_in_parent_folders("resource-group")
-//   // config_path = "../resource-group"
+//
 
 //   mock_outputs_allowed_terraform_commands = ["validate", "plan"]
 //   mock_outputs = {

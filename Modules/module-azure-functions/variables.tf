@@ -134,7 +134,6 @@ variable "function_secret_permissions" {
 }
 
 variable "tenant_id" {
-  default     = "94c3e67c-9e2d-4800-a6b7-635d97882165"
   description = "The Azure Active Directory tenant ID that should be used for authenticating requests to the key vault."
 }
 

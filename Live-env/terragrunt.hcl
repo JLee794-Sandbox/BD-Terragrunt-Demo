@@ -3,6 +3,21 @@
 # Terragrunt is a thin wrapper for Terraform that provides extra tools for working with multiple Terraform modules,
 # remote state, and locking: https://github.com/gruntwork-io/terragrunt
 # ---------------------------------------------------------------------------------------------------------------------
+terraform {
+  extra_arguments "plugin_dir" {
+    commands = [
+        "init",
+        "plan",
+        "apply",
+        "destroy",
+        "output"
+    ]
+
+    env_vars = {
+        TF_PLUGIN_CACHE_DIR = "/tmp/plugins",
+    }
+  }
+}
 
 # Generate an Azure provider block
 # TODO: Do further planning on multi-tenant/region scenarios around multiple provider configurations
@@ -15,10 +30,16 @@ provider "azurerm" {
 }
 
 terraform {
+  # NOTE: setting required providers at the terragrunt level
+  #        will propagate these versions to ALL modules
   required_providers {
+    azuread = {
+      source = "hashicorp/azuread"
+      version = "~> 2.22.0"
+    }
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "2.38.0"
+      version = "=2.71.0"
     }
     null = {
       source  = "hashicorp/null"
@@ -66,7 +87,7 @@ remote_state {
     resource_group_name  = local.backend_storage_resource_group_name
     storage_account_name = local.backend_storage_account_name
     container_name       = "tfstate"
-    key                  = "${path_relative_to_include()}/${local.environment}/terraform.tfstate"
+    key                  = "bd-terragrunt-demo/${path_relative_to_include()}/${local.environment}/terraform.tfstate"
   }
 }
 
@@ -80,7 +101,7 @@ remote_state {
 # where terraform_remote_state data sources are placed directly into the modules.
 inputs = merge(
   local.common_vars.locals,
-  local.env_vars,
+  local.env_vars.locals,
   local.layer_vars.locals,
   {
     environment = local.environment,

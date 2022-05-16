@@ -8,6 +8,7 @@ variable "location" {
 }
 
 variable "tags" {
+  type = map
   description = "A mapping of tags to assign to resource group"
   default     = {}
 }
