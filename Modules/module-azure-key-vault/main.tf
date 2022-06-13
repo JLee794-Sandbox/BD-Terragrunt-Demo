@@ -17,7 +17,7 @@ resource "azurerm_key_vault" "this" {
   network_acls {
     default_action             = var.network_acls_default_action
     bypass                     = var.network_acls_bypass
-    ip_rules                   = [ chomp(data.http.myip.body) ]
+    ip_rules                   = [chomp(data.http.myip.body)]
     virtual_network_subnet_ids = var.virtual_network_subnet_ids
   }
   access_policy {
@@ -37,6 +37,7 @@ resource "azurerm_key_vault" "this" {
       "List",
       "Delete",
       "Set",
+      "Recover",
       "Purge"
     ]
 

@@ -6,7 +6,7 @@ locals {
   backend_storage_account_name        = "bootstrapsadev"
 
   # AKS Configuration
-  service_cidr =  "10.0.1.0/24"
   dns_service_ip = "10.0.1.10"
+  service_cidr =  "10.0.1.0/24"
   docker_bridge_cidr = "10.0.3.0/24"
 }
