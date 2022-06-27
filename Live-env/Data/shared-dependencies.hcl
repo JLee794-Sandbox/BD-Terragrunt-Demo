@@ -21,21 +21,21 @@ dependency "azure-naming" {
   }
 }
 
-// dependency "resource-group" {
-//   config_path = "../Shared/resource-group"
+dependency "resource-group" {
+  config_path = "../Shared/resource-group"
 
 
-//   skip_outputs = true
-//   # mock_outputs_allowed_terraform_commands = ["validate", "plan"]
-//   mock_outputs = {
-//     location = "eastus"
-//     name = "rg-rnd-uis-dev-eastus-01"
-//   }
-// }
+  skip_outputs = true
+  # mock_outputs_allowed_terraform_commands = ["validate", "plan"]
+  mock_outputs = {
+    location = "eastus"
+    name = "rg-rnd-uis-dev-eastus-01"
+  }
+}
 
 inputs = {
-  // resource_group_name = dependency.resource-group.outputs.name
-  // location = dependency.resource-group.outputs.location
+  resource_group_name = dependency.resource-group.outputs.name
+  location = dependency.resource-group.outputs.location
   name = dependency.azure-naming.outputs.name
   tags = dependency.azure-naming.outputs.tags
 }

@@ -66,6 +66,7 @@ variable "assign_identity" {
 variable "tags" {
   description = "A mapping of tags to assign to resource"
   default     = {}
+  type        = map(any)
 }
 
 variable "default_action" {

@@ -14,7 +14,8 @@ terraform {
     ]
 
     env_vars = {
-        TF_PLUGIN_CACHE_DIR = "/tmp/plugins",
+        TERRAGRUNT_DOWNLOAD = find_in_parent_folders("_tmp/cache"),
+        TF_PLUGIN_CACHE_DIR = find_in_parent_folders("_tmp/plugins")
     }
   }
 }
@@ -23,7 +24,7 @@ terraform {
 # TODO: Do further planning on multi-tenant/region scenarios around multiple provider configurations
 generate "provider" {
   path      = "provider.tf"
-  if_exists = "overwrite_terragrunt"
+  if_exists = "skip"
   contents  = <<EOF
 provider "azurerm" {
   features {}

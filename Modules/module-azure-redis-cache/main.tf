@@ -1,5 +1,4 @@
 resource "azurerm_redis_cache" "redis_cache" {
-  count                = var.create_redis_cache ? 1 : 0
   name                = lower(join("", ["redis-", format("%v", var.name)]))
   location            = var.location
   resource_group_name = var.resource_group_name

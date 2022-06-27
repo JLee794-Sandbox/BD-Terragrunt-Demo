@@ -28,11 +28,12 @@ variable "max_size_gb" {
 variable "tags" {
   description = "A mapping of tags to assign to the resource"
   default     = {}
+  type        = map(any)
 }
 
 variable "zone_redundant" {
   description = "Whether or not this elastic pool is zone redundant. 'tier' needs to be 'Premium' for 'DTU' based or 'BusinessCritical' for 'vCore' based 'sku'. Defaults to 'false'"
-   default     = false
+  default     = false
 }
 
 

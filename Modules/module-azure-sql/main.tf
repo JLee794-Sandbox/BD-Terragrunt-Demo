@@ -48,7 +48,7 @@ resource "azurerm_mssql_database" "sql_db" {
 ##-----end-of-section-------------------#
 
 resource "azurerm_mssql_database_extended_auditing_policy" "sql_database_audit_policy" {
-  for_each          = var.auditing_policy ? toset(var.sql_db_names) : []
+  for_each          = var.auditing_policy > 0 ? toset(var.sql_db_names) : []
   database_id       = azurerm_mssql_database.sql_db[each.key].id
   storage_endpoint  = azurerm_storage_account.storage_account_logs.primary_blob_endpoint
   retention_in_days = var.retention_in_days
@@ -78,11 +78,11 @@ resource "azurerm_storage_container" "sql_security_blob" {
 }
 
 resource "azurerm_mssql_server_security_alert_policy" "sql_security" {
-  resource_group_name = var.resource_group_name
-  server_name         = azurerm_mssql_server.sql_server.name
-  state               = "Enabled"
-  retention_days      = 20
-  storage_endpoint    = azurerm_storage_account.storage_account_vulnerability_assesstment.primary_blob_endpoint
+  resource_group_name        = var.resource_group_name
+  server_name                = azurerm_mssql_server.sql_server.name
+  state                      = "Enabled"
+  retention_days             = 20
+  storage_endpoint           = azurerm_storage_account.storage_account_vulnerability_assesstment.primary_blob_endpoint
   storage_account_access_key = azurerm_storage_account.storage_account_vulnerability_assesstment.primary_access_key
 }
 
@@ -94,6 +94,6 @@ resource "azurerm_mssql_server_vulnerability_assessment" "sql_vulnerability_asse
   recurring_scans {
     enabled                   = true
     email_subscription_admins = true
-    emails = var.notification_emails
+    emails                    = var.notification_emails
   }
 }

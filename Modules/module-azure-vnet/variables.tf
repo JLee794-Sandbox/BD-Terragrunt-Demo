@@ -12,12 +12,12 @@ variable "location" {
 
 variable "address_space" {
   description = "Virtual network address space" #- ["10.0.0.0/19"]
-  type        = list
+  type        = list(any)
 }
 
 variable "tags" {
   description = "A mapping of tags to assign to virtual network"
-  type = map
+  type        = map(any)
   default     = {}
 }
 
