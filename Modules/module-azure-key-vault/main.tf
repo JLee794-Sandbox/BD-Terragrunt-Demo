@@ -4,7 +4,7 @@ data "http" "myip" {
 }
 
 resource "azurerm_key_vault" "this" {
-  name                        = var.key_vault_name
+  name                        = var.name
   location                    = var.location
   resource_group_name         = var.resource_group_name
   enabled_for_disk_encryption = true

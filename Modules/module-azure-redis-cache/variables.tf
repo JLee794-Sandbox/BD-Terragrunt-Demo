@@ -8,7 +8,7 @@ variable "location" {
 }
 
 variable "tags" {
-  type = map
+  type        = map(any)
   description = "A mapping of tags to assign to resource group"
   default     = {}
 }
@@ -26,7 +26,7 @@ variable "capacity" {
 
 
 variable "family" {
-  type        = map
+  type        = map(any)
   description = " The SKU family/pricing group to use. Valid values are C (for Basic/Standard SKU family) and P (for Premium)"
   default = {
     Basic    = "C",

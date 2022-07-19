@@ -1,4 +1,4 @@
-variable "key_vault_name" {
+variable "name" {
   type        = string
   description = "Specifies the name of the Key Vault. Changing this forces a new resource to be created."
 }
