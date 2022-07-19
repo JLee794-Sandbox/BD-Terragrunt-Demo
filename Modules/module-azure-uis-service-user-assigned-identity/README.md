@@ -55,3 +55,47 @@ This module creates a user assigned identity for a uis service and assigns a rea
 ### v 0.0.1 2021-05-13
 
 * Initial version
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+## Requirements
+
+No requirements.
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | n/a |
+
+## Modules
+
+No modules.
+
+## Resources
+
+| Name | Type |
+|------|------|
+| [azurerm_key_vault_access_policy.service_key_vault_access_policy](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/key_vault_access_policy) | resource |
+| [azurerm_user_assigned_identity.service_user_assigned_identity](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/user_assigned_identity) | resource |
+| [azurerm_client_config.current](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/client_config) | data source |
+
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_aks_node_resource_group"></a> [aks\_node\_resource\_group](#input\_aks\_node\_resource\_group) | Name of the resource group where the kubernetes nodes should exist | `string` | `""` | no |
+| <a name="input_key_vault_id"></a> [key\_vault\_id](#input\_key\_vault\_id) | ID of the key vault | `string` | `""` | no |
+| <a name="input_location"></a> [location](#input\_location) | User assigned identity resource location | `string` | `"eastus"` | no |
+| <a name="input_name"></a> [name](#input\_name) | Name of the user assigned identity | `string` | `""` | no |
+| <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name) | Resource group name | `any` | n/a | yes |
+| <a name="input_subscription_id"></a> [subscription\_id](#input\_subscription\_id) | Subscription id | `string` | `""` | no |
+| <a name="input_tags"></a> [tags](#input\_tags) | A mapping of tags to assign to the user identity | `map` | `{}` | no |
+| <a name="input_tenant_id"></a> [tenant\_id](#input\_tenant\_id) | Tenant id | `string` | `""` | no |
+
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| <a name="output_uis_service_user_assigned_identity_client_id"></a> [uis\_service\_user\_assigned\_identity\_client\_id](#output\_uis\_service\_user\_assigned\_identity\_client\_id) | Client id associated with the user assigned identity |
+| <a name="output_uis_service_user_assigned_identity_id"></a> [uis\_service\_user\_assigned\_identity\_id](#output\_uis\_service\_user\_assigned\_identity\_id) | User assigned identity id |
+| <a name="output_uis_service_user_assigned_identity_principal_id"></a> [uis\_service\_user\_assigned\_identity\_principal\_id](#output\_uis\_service\_user\_assigned\_identity\_principal\_id) | Service principal id associated with the user assigned identity |
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

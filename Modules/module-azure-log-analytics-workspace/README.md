@@ -52,3 +52,46 @@ This module:
 
 ### v 0.0.1 2021-02-12
 * Initial version
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+## Requirements
+
+No requirements.
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | n/a |
+
+## Modules
+
+No modules.
+
+## Resources
+
+| Name | Type |
+|------|------|
+| [azurerm_log_analytics_workspace.workspace](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/log_analytics_workspace) | resource |
+
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_daily_quota_gb"></a> [daily\_quota\_gb](#input\_daily\_quota\_gb) | The workspace daily quota for ingestion in GB. | `any` | `null` | no |
+| <a name="input_deploy_log_analytics_workspace"></a> [deploy\_log\_analytics\_workspace](#input\_deploy\_log\_analytics\_workspace) | If set to True, log\_analytics\_workspace will be deployed within AKS cluster | `bool` | `false` | no |
+| <a name="input_internet_ingestion_enabled"></a> [internet\_ingestion\_enabled](#input\_internet\_ingestion\_enabled) | Should the Log Analytics Workflow support ingestion over the Public Internet? | `bool` | `true` | no |
+| <a name="input_internet_query_enabled"></a> [internet\_query\_enabled](#input\_internet\_query\_enabled) | Should the Log Analytics Workflow support querying over the Public Internet? | `bool` | `true` | no |
+| <a name="input_location"></a> [location](#input\_location) | The Azure Region in which to create the Virtual Network | `string` | `"eastus2"` | no |
+| <a name="input_logs_retention_in_days"></a> [logs\_retention\_in\_days](#input\_logs\_retention\_in\_days) | The retention period for the logs in days | `number` | `30` | no |
+| <a name="input_name"></a> [name](#input\_name) | The name of the log analytics workspace to create. Changing this forces a new resource to be created. | `any` | n/a | yes |
+| <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name) | The name of the Resource Group in which the Virtual Network | `any` | n/a | yes |
+| <a name="input_sku_log_analytics_workspace"></a> [sku\_log\_analytics\_workspace](#input\_sku\_log\_analytics\_workspace) | The SKU (pricing level) of the Log Analytics workspace | `string` | `"Free"` | no |
+| <a name="input_tags"></a> [tags](#input\_tags) | A mapping of tags to assign to resources | `map` | `{}` | no |
+
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| <a name="output_id"></a> [id](#output\_id) | n/a |
+| <a name="output_name"></a> [name](#output\_name) | n/a |
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->

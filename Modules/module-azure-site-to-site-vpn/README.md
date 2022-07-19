@@ -67,3 +67,53 @@ This module creates Local Network Gateway and Network Gateway Connection.
 ### v 1.0.0 2021-01-15
 
 * Initial version
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+## Requirements
+
+No requirements.
+
+## Providers
+
+| Name | Version |
+|------|---------|
+| <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm) | n/a |
+
+## Modules
+
+No modules.
+
+## Resources
+
+| Name | Type |
+|------|------|
+| [azurerm_local_network_gateway.local_network_gateway](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/local_network_gateway) | resource |
+| [azurerm_virtual_network_gateway_connection.virtual_network_gateway_connection](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/virtual_network_gateway_connection) | resource |
+
+## Inputs
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| <a name="input_local_network_gateway_address"></a> [local\_network\_gateway\_address](#input\_local\_network\_gateway\_address) | Public IP address of the local network gateway | `any` | n/a | yes |
+| <a name="input_local_network_gateway_address_space"></a> [local\_network\_gateway\_address\_space](#input\_local\_network\_gateway\_address\_space) | Address space of the local network gateway - 10.1.1.0/26 | `any` | n/a | yes |
+| <a name="input_location"></a> [location](#input\_location) | Virtual network location -	westeurope/eastus | `any` | n/a | yes |
+| <a name="input_name"></a> [name](#input\_name) | Local network gateway name | `any` | n/a | yes |
+| <a name="input_resource_group_name"></a> [resource\_group\_name](#input\_resource\_group\_name) | Resource group name | `any` | n/a | yes |
+| <a name="input_tags"></a> [tags](#input\_tags) | A mapping of tags to assign to resources | `map` | `{}` | no |
+| <a name="input_virtual_network_gateway_connection_type"></a> [virtual\_network\_gateway\_connection\_type](#input\_virtual\_network\_gateway\_connection\_type) | VPN connection type | `string` | `"IPsec"` | no |
+| <a name="input_virtual_network_gateway_id"></a> [virtual\_network\_gateway\_id](#input\_virtual\_network\_gateway\_id) | VPN Gateway ID | `any` | n/a | yes |
+| <a name="input_virtual_network_gateway_pre_shared_key"></a> [virtual\_network\_gateway\_pre\_shared\_key](#input\_virtual\_network\_gateway\_pre\_shared\_key) | Connection shared key secret name | `any` | n/a | yes |
+
+## Outputs
+
+| Name | Description |
+|------|-------------|
+| <a name="output_local_network_gateway_address"></a> [local\_network\_gateway\_address](#output\_local\_network\_gateway\_address) | n/a |
+| <a name="output_local_network_gateway_address_space"></a> [local\_network\_gateway\_address\_space](#output\_local\_network\_gateway\_address\_space) | n/a |
+| <a name="output_local_network_gateway_id"></a> [local\_network\_gateway\_id](#output\_local\_network\_gateway\_id) | n/a |
+| <a name="output_local_network_gateway_name"></a> [local\_network\_gateway\_name](#output\_local\_network\_gateway\_name) | n/a |
+| <a name="output_location"></a> [location](#output\_location) | n/a |
+| <a name="output_resource_group_name"></a> [resource\_group\_name](#output\_resource\_group\_name) | n/a |
+| <a name="output_virtual_network_gateway_connection_id"></a> [virtual\_network\_gateway\_connection\_id](#output\_virtual\_network\_gateway\_connection\_id) | n/a |
+| <a name="output_virtual_network_gateway_connection_name"></a> [virtual\_network\_gateway\_connection\_name](#output\_virtual\_network\_gateway\_connection\_name) | n/a |
+| <a name="output_virtual_network_gateway_connection_type"></a> [virtual\_network\_gateway\_connection\_type](#output\_virtual\_network\_gateway\_connection\_type) | n/a |
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
