@@ -19,9 +19,17 @@ output "address_space" {
 }
 
 output "private_id" {
-  value = var.public_domain_name == "" ? "" : azurerm_private_dns_zone.private_dns_zone.0.id
+  value = azurerm_private_dns_zone.private_dns_zone.id
 }
 
 output "private_fqdn" {
-  value = var.public_domain_name == "" ? "" : trim(azurerm_private_dns_zone.private_dns_zone.soa_record[0].fqdn, ".$")
+  value = trim(azurerm_private_dns_zone.private_dns_zone.soa_record[0].fqdn, ".$")
+}
+
+output "public_id" {
+  value = length(azurerm_dns_zone.this) > 0 ? azurerm_dns_zone.this[0].id : null
+}
+
+output "public_name_servers" {
+  value = length(azurerm_dns_zone.this) > 0 ? azurerm_dns_zone.this[0].name_servers : null
 }

@@ -17,14 +17,29 @@ variable "tags" {
   default     = {}
 }
 
-variable "subnet_id" {
-  description = "ID of Bastion Service subnet"
-}
-
 variable "name" {
-  description = "The name of the PublicIPName resource being deployed"
+  description = "The name of the deployment"
 }
 
 variable "domain_name_label" {
   description = "The Public DNS Name being created"
+}
+
+variable "target_subnet_id" {
+  description = "Subnet ID to associate the Bastion subnet with."
+  type        = string
+}
+variable "target_nsg_name" {
+  description = "Name of the NSG to add ingress rule for Bastion to."
+  type        = string
+}
+
+variable "vnet_name" {
+  description = "The name of the virtual network the bastion host and subnet will reside in."
+  type        = string
+}
+
+variable "address_prefix" {
+  description = "CIDR to assign to the bastion subnet."
+  type        = string
 }
