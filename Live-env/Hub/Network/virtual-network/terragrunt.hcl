@@ -13,9 +13,9 @@ include {
 }
 
 locals {
-  common_vars       = read_terragrunt_config(find_in_parent_folders("common.hcl"))
+  common_vars            = read_terragrunt_config(find_in_parent_folders("common.hcl"))
   shared_dependency_vars = read_terragrunt_config(find_in_parent_folders("shared-dependencies.hcl"))
-  module_repository = local.common_vars.locals.module_repository
+  module_repository      = local.common_vars.locals.module_repository
 
 }
 
@@ -23,9 +23,9 @@ locals {
 inputs = merge(
   local.shared_dependency_vars.inputs,
   {
-    name = "hub-${local.shared_dependency_vars.inputs.name}"
+    name                = "hub-${local.shared_dependency_vars.inputs.name}"
     private_domain_name = "${local.shared_dependency_vars.inputs.name}.${local.shared_dependency_vars.inputs.location}.unity.io"
-    public_domain_name = "${local.shared_dependency_vars.inputs.name}.${local.shared_dependency_vars.inputs.location}.bd.com"
+    public_domain_name  = "${local.shared_dependency_vars.inputs.name}.${local.shared_dependency_vars.inputs.location}.bd.com"
     // Override any implicitly passed in variables here
   }
 )

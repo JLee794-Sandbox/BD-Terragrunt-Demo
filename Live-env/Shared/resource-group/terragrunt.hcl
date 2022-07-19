@@ -12,22 +12,22 @@ terraform {
 }
 
 dependency "azure-naming" {
-  config_path = find_in_parent_folders("Shared/azure-naming")
+  config_path                             = find_in_parent_folders("Shared/azure-naming")
   mock_outputs_allowed_terraform_commands = ["validate", "init"]
   mock_outputs = {
-    name = "rnd-uis-dev-eastus-01"
+    name       = "rnd-uis-dev-eastus-01"
     short_name = "rnduisdeus01"
-    location = "eastus"
+    location   = "eastus"
     tags = {
       "ConstCenterName" = "const-center1"
-      "CostCenter" = "center1"
-      "Department" = "rnd"
-      "Environment" = "dev"
-      "Location" = "eastus"
-      "Product" = "test"
-      "business_unit" = "MyBusiness"
-      "owner" = "jinle@microsoft.com"
-      "provisioner" = "terraform"
+      "CostCenter"      = "center1"
+      "Department"      = "rnd"
+      "Environment"     = "dev"
+      "Location"        = "eastus"
+      "Product"         = "test"
+      "business_unit"   = "MyBusiness"
+      "owner"           = "jinle@microsoft.com"
+      "provisioner"     = "terraform"
     }
   }
 }

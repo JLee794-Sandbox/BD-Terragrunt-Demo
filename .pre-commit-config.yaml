@@ -13,6 +13,7 @@ repos:
       # - id: terraform-fmt
       # - id: terraform-validate
       - id: tflint
+      - id: terragrunt-hclfmt
 
   - repo: https://github.com/antonbabenko/pre-commit-terraform
     rev: v1.74.1 # Get the latest from: https://github.com/antonbabenko/pre-commit-terraform/releases

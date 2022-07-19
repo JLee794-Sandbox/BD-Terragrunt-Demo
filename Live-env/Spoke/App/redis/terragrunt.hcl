@@ -30,7 +30,7 @@ dependency "sql-server" {
 }
 
 locals {
-  common_vars       = read_terragrunt_config(find_in_parent_folders("common.hcl"))
+  common_vars            = read_terragrunt_config(find_in_parent_folders("common.hcl"))
   shared_dependency_vars = read_terragrunt_config(find_in_parent_folders("shared-dependencies.hcl"))
 
   module_repository = local.common_vars.locals.module_repository
@@ -41,6 +41,6 @@ inputs = merge(
   local.shared_dependency_vars.inputs,
   {
     server_name = dependency.sql-server.outputs.sql_server_name
-    subnet_id = dependency.subnet-saas.outputs.id
+    subnet_id   = dependency.subnet-saas.outputs.id
   }
 )

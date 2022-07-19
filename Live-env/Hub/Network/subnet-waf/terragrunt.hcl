@@ -25,7 +25,7 @@ dependency "nsg" {
 
   mock_outputs_allowed_terraform_commands = ["init", "validate"]
   mock_outputs = {
-    id                = "mocknsgid"
+    id = "mocknsgid"
   }
 }
 
@@ -34,20 +34,20 @@ include {
 }
 
 locals {
-  common_vars       = read_terragrunt_config(find_in_parent_folders("common.hcl"))
-  layer_vars       = read_terragrunt_config(find_in_parent_folders("layer.hcl"))
+  common_vars            = read_terragrunt_config(find_in_parent_folders("common.hcl"))
+  layer_vars             = read_terragrunt_config(find_in_parent_folders("layer.hcl"))
   shared_dependency_vars = read_terragrunt_config(find_in_parent_folders("shared-dependencies.hcl"))
-  module_repository = local.common_vars.locals.module_repository
-  address_prefixes = local.layer_vars.locals.address_prefixes["waf"]
+  module_repository      = local.common_vars.locals.module_repository
+  address_prefixes       = local.layer_vars.locals.address_prefixes["waf"]
 }
 
 inputs = merge(
   local.shared_dependency_vars.inputs,
   {
     // Override any implicitly passed in variables here
-    name = lower(join("", ["snetwaf-", local.shared_dependency_vars.inputs.name]))
-    virtual_network_name = dependency.virtual-network.outputs.name
+    name                      = lower(join("", ["snetwaf-", local.shared_dependency_vars.inputs.name]))
+    virtual_network_name      = dependency.virtual-network.outputs.name
     network_security_group_id = dependency.nsg.outputs.id
-    address_prefixes = local.address_prefixes
+    address_prefixes          = local.address_prefixes
   }
 )

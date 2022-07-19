@@ -16,7 +16,7 @@ dependency "vnet" {
 
   mock_outputs_allowed_terraform_commands = ["validate", "plan"]
   mock_outputs = {
-    id = "/some/mock/id/here"
+    id           = "/some/mock/id/here"
     private_fqdn = "rnd-uis-dev-eastus-01.eastus.unity.io"
   }
 }
@@ -66,8 +66,8 @@ dependency "redis" {
 
 
 locals {
-  common_vars       = read_terragrunt_config(find_in_parent_folders("common.hcl"))
-  layer_vars       = read_terragrunt_config(find_in_parent_folders("layer.hcl"))
+  common_vars            = read_terragrunt_config(find_in_parent_folders("common.hcl"))
+  layer_vars             = read_terragrunt_config(find_in_parent_folders("layer.hcl"))
   shared_dependency_vars = read_terragrunt_config(find_in_parent_folders("shared-dependencies.hcl"))
 
   module_repository = local.common_vars.locals.module_repository
@@ -81,35 +81,35 @@ inputs = merge(
       "kv" = {
         subnet_id                      = dependency.subnet.outputs.id
         private_connection_resource_id = dependency.key-vault.outputs.id
-        subresource_names              = [ "vault" ]
+        subresource_names              = ["vault"]
         private_dns_zone_name          = dependency.vnet.outputs.private_fqdn
         tags                           = {}
       },
       "storage.blob" = {
         subnet_id                      = dependency.subnet.outputs.id
         private_connection_resource_id = dependency.storage-account.outputs.storage_account_id[0]
-        subresource_names              = [ "blob" ]
+        subresource_names              = ["blob"]
         private_dns_zone_name          = dependency.vnet.outputs.private_fqdn
         tags                           = {}
       },
       "storage.file" = {
         subnet_id                      = dependency.subnet.outputs.id
         private_connection_resource_id = dependency.storage-account.outputs.storage_account_id[0]
-        subresource_names              = [ "file" ]
+        subresource_names              = ["file"]
         private_dns_zone_name          = dependency.vnet.outputs.private_fqdn
         tags                           = {}
       },
       "redis" = {
         subnet_id                      = dependency.subnet.outputs.id
         private_connection_resource_id = dependency.redis.outputs.redis_id
-        subresource_names              = [ "redisCache" ]
+        subresource_names              = ["redisCache"]
         private_dns_zone_name          = dependency.vnet.outputs.private_fqdn
         tags                           = {}
       },
       "db" = {
         subnet_id                      = dependency.subnet.outputs.id
         private_connection_resource_id = dependency.sql-server.outputs.sql_server_id
-        subresource_names              = [ "sqlServer" ]
+        subresource_names              = ["sqlServer"]
         private_dns_zone_name          = dependency.vnet.outputs.private_fqdn
         tags                           = {}
       }

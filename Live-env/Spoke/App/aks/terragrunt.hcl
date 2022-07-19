@@ -16,7 +16,7 @@ dependency "vnet" {
 
   mock_outputs_allowed_terraform_commands = ["validate", "plan"]
   mock_outputs = {
-    id = "/some/mock/id/here"
+    id           = "/some/mock/id/here"
     private_fqdn = "rnd-uis-dev-eastus-01.eastus.unity.io"
   }
 }
@@ -40,8 +40,8 @@ dependency "key-vault" {
 }
 
 locals {
-  common_vars       = read_terragrunt_config(find_in_parent_folders("common.hcl"))
-  layer_vars       = read_terragrunt_config(find_in_parent_folders("layer.hcl"))
+  common_vars            = read_terragrunt_config(find_in_parent_folders("common.hcl"))
+  layer_vars             = read_terragrunt_config(find_in_parent_folders("layer.hcl"))
   shared_dependency_vars = read_terragrunt_config(find_in_parent_folders("shared-dependencies.hcl"))
 
   module_repository = local.common_vars.locals.module_repository
@@ -51,7 +51,7 @@ locals {
 inputs = merge(
   local.shared_dependency_vars.inputs,
   {
-    keyvault_id = dependency.key-vault.outputs.id
+    keyvault_id    = dependency.key-vault.outputs.id
     vnet_subnet_id = dependency.subnet.outputs.id
 
     private_dns_zone_id = dependency.vnet.outputs.private_id

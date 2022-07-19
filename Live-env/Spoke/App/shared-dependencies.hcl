@@ -3,19 +3,19 @@ dependency "azure-naming" {
 
   mock_outputs_allowed_terraform_commands = ["validate", "init"]
   mock_outputs = {
-    name = "rnd-uis-dev-eastus-01"
+    name       = "rnd-uis-dev-eastus-01"
     short_name = "rnduisdeus01"
-    location = "eastus"
+    location   = "eastus"
     tags = {
       "ConstCenterName" = "const-center1"
-      "CostCenter" = "center1"
-      "Department" = "rnd"
-      "Environment" = "dev"
-      "Location" = "eastus"
-      "Product" = "test"
-      "business_unit" = "MyBusiness"
-      "owner" = "jinle@microsoft.com"
-      "provisioner" = "terraform"
+      "CostCenter"      = "center1"
+      "Department"      = "rnd"
+      "Environment"     = "dev"
+      "Location"        = "eastus"
+      "Product"         = "test"
+      "business_unit"   = "MyBusiness"
+      "owner"           = "jinle@microsoft.com"
+      "provisioner"     = "terraform"
     }
   }
 }
@@ -26,17 +26,17 @@ dependency "resource-group" {
   mock_outputs_allowed_terraform_commands = ["validate", "init"]
   mock_outputs = {
     location = "eastus"
-    id = "/some/mock/id/here"
-    name = "rg-rnd-uis-dev-eastus-01"
+    id       = "/some/mock/id/here"
+    name     = "rg-rnd-uis-dev-eastus-01"
   }
 }
 
 inputs = {
   resource_group_name = dependency.resource-group.outputs.name
-  location = dependency.resource-group.outputs.location
-  name = dependency.azure-naming.outputs.name
-  short_name = dependency.azure-naming.outputs.short_name
-  tags = dependency.azure-naming.outputs.tags
+  location            = dependency.resource-group.outputs.location
+  name                = dependency.azure-naming.outputs.name
+  short_name          = dependency.azure-naming.outputs.short_name
+  tags                = dependency.azure-naming.outputs.tags
 
   rg_id = dependency.resource-group.outputs.id
 }

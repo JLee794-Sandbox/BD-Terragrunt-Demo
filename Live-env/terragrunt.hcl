@@ -6,16 +6,16 @@
 terraform {
   extra_arguments "plugin_dir" {
     commands = [
-        "init",
-        "plan",
-        "apply",
-        "destroy",
-        "output"
+      "init",
+      "plan",
+      "apply",
+      "destroy",
+      "output"
     ]
 
     env_vars = {
-        TERRAGRUNT_DOWNLOAD = find_in_parent_folders("_tmp/cache"),
-        TF_PLUGIN_CACHE_DIR = find_in_parent_folders("_tmp/plugins")
+      TERRAGRUNT_DOWNLOAD = find_in_parent_folders("_tmp/cache"),
+      TF_PLUGIN_CACHE_DIR = find_in_parent_folders("_tmp/plugins")
     }
   }
 }
@@ -54,7 +54,7 @@ EOF
 locals {
   # Load the site and environment-level shared values
   common_vars = read_terragrunt_config(find_in_parent_folders("common.hcl"))
-  layer_vars = read_terragrunt_config(find_in_parent_folders("layer.hcl"))
+  layer_vars  = read_terragrunt_config(find_in_parent_folders("layer.hcl"))
 
   # Load backend configuration from the scoped common.hcl configuration file
   backend_subscription_id             = local.env_vars.locals.backend_subscription_id
@@ -67,7 +67,7 @@ locals {
 
   # Set environment based on the environment variable ENV, default to dev
   environment = get_env("ENV", "dev")
-  env_vars = read_terragrunt_config(find_in_parent_folders("${local.environment}.hcl"))
+  env_vars    = read_terragrunt_config(find_in_parent_folders("${local.environment}.hcl"))
 
   env_tags = merge(
     can(local.common_vars.locals["tags"]) ? local.common_vars.locals["tags"] : {},
@@ -106,7 +106,7 @@ inputs = merge(
   local.layer_vars.locals,
   {
     environment = local.environment,
-    layer = local.layer,
-    env_tags = local.env_tags, # alternatively, tags = local.env_tags
+    layer       = local.layer,
+    env_tags    = local.env_tags, # alternatively, tags = local.env_tags
   }
 )

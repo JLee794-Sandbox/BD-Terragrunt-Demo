@@ -13,9 +13,9 @@ include {
 }
 
 locals {
-  common_vars       = read_terragrunt_config(find_in_parent_folders("common.hcl"))
+  common_vars            = read_terragrunt_config(find_in_parent_folders("common.hcl"))
   shared_dependency_vars = read_terragrunt_config(find_in_parent_folders("shared-dependencies.hcl"))
-  module_repository = local.common_vars.locals.module_repository
+  module_repository      = local.common_vars.locals.module_repository
 
 }
 
@@ -28,7 +28,7 @@ dependency "hub-vnet" {
     name                = "vnet-rnd-uis-dev-eastus-01"
     resource_group_name = "rg-rnd-uis-dev-eastus-01"
     location            = "eastus"
-    id = "some/resource/id"
+    id                  = "some/resource/id"
   }
 }
 
@@ -37,7 +37,7 @@ dependency "hub-vnet" {
 inputs = merge(
   local.shared_dependency_vars.inputs,
   {
-    name = "spoke-${local.shared_dependency_vars.inputs.name}"
+    name                       = "spoke-${local.shared_dependency_vars.inputs.name}"
     target_vnet_id_for_peering = dependency.hub-vnet.outputs.id
   }
 )

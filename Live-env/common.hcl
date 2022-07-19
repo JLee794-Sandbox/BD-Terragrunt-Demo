@@ -1,6 +1,6 @@
 # Variables that are common across all environments go here
 locals {
-  module_repository = "${get_parent_terragrunt_dir()}/../Modules"
+  module_repository   = "${get_parent_terragrunt_dir()}/../Modules"
   solution_repository = "${get_parent_terragrunt_dir()}/../Solutions"
 
   # Commonly shared variables for naming
@@ -16,7 +16,7 @@ locals {
   # Logic within the root terragrunt.hcl to inject/merge the tags
   tags = {
     business_unit = "MyBusiness",
-    owner = "jinle@microsoft.com",
-    provisioner = "terraform"
+    owner         = "jinle@microsoft.com",
+    provisioner   = "terraform"
   }
 }
