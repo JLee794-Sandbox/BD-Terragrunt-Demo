@@ -37,7 +37,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 1
-      fail-fast: true
+      fail-fast: false
       matrix:
         working_dir: [
           'Live-env/Shared',
@@ -95,6 +95,7 @@ jobs:
       # Generates an execution plan for Terragrunt
       - name: Terragrunt Plan
         run: terragrunt run-all plan --terragrunt-non-interactive
+        continue-on-error: true
         working-directory: ${{ matrix.working_dir }}
         env:
           ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
@@ -106,7 +107,7 @@ jobs:
         # On push to main, build or change infrastructure according to Terragrunt configuration files
         # Note: It is recommended to set up a required "strict" status check in your repository for "Terragrunt Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
       - name: Terragrunt Apply
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        # if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: terragrunt apply-all --terragrunt-non-interactive
         working-directory: ${{ matrix.working_dir }}
         env:
