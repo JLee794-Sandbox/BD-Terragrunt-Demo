@@ -27,6 +27,7 @@ generate "provider" {
   if_exists = "skip"
   contents  = <<EOF
 provider "azurerm" {
+  use_oidc = true
   features {}
 }
 
