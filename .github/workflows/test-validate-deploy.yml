@@ -49,12 +49,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: debug
-        run: |
-          echo "$GITHUB_CONTEXT"
-          # env
-          echo ${ACTIONS_ID_TOKEN_REQUEST_URL}
-          echo ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}
+
       # - uses: actions/checkout@v2
       # Install the latest version of Terragrunt CLI and configure the Terragrunt CLI configuration file with a Terragrunt Cloud user API token
       - name: Setup Terraform ${{ env.tf_version }}
@@ -80,6 +75,13 @@ jobs:
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
+      - name: debug
+        run: |
+          echo "$GITHUB_CONTEXT"
+          env
+          echo ${ACTIONS_ID_TOKEN_REQUEST_URL}
+          echo ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}
+
       - name: 'Run az commands'
         run: |
           az account show
@@ -98,7 +100,9 @@ jobs:
           ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
           ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
           ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-          ARM_USE_AZUREAD: true
+          ARM_USE_OIDC: true
+          ARM_OIDC_REQUEST_TOKEN: ${{ secrets.ACTIONS_ID_TOKEN_REQUEST_TOKEN }}
+          ARM_OIDC_REQUEST_URL: ${{ secrets.ACTIONS_ID_TOKEN_REQUEST_URL }}
           ENV: stg
 
         # On push to main, build or change infrastructure according to Terragrunt configuration files
