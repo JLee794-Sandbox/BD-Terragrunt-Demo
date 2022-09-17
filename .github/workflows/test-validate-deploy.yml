@@ -52,7 +52,7 @@ jobs:
       - name: debug
         run: |
           echo "$GITHUB_CONTEXT"
-          env
+          # env
           echo ${ACTIONS_ID_TOKEN_REQUEST_URL}
           echo ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}
       # - uses: actions/checkout@v2
@@ -84,7 +84,6 @@ jobs:
         run: |
           az account show
           az group list
-          echo $ACTIONS_ID_TOKEN_REQUEST_TOKEN
           pwd
       # # Initialize a new or existing Terragrunt working directory by creating initial files, loading any remote state, downloading modules, etc.
       # - name: Terragrunt Init
