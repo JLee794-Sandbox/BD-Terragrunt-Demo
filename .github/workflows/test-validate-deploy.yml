@@ -45,7 +45,15 @@ jobs:
           # 'Live-env/Spoke/App'
           ]
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: debug
+        run: |
+          echo "$GITHUB_CONTEXT"
+          env
+          echo ${ACTIONS_ID_TOKEN_REQUEST_URL}
+          echo ${ACTIONS_ID_TOKEN_REQUEST_TOKEN}
+      # - uses: actions/checkout@v2
       # Install the latest version of Terragrunt CLI and configure the Terragrunt CLI configuration file with a Terragrunt Cloud user API token
       - name: Setup Terraform ${{ env.tf_version }}
         uses: hashicorp/setup-Terraform@v1
