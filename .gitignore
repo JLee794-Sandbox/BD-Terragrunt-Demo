@@ -1,6 +1,6 @@
 # Ignore local cache dir
-_tmp
-
+**/_tmp/cache/**
+**/_tmp/plugins/**
 .vscode
 
 # Local .terraform directories
