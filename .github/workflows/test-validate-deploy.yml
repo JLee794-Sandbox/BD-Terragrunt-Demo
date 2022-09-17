@@ -10,7 +10,7 @@ on:
 env:
   tg_version: 'v0.36.1'
   tf_version: 'v1.1.4'
-  tf_working_dir: 'Live-env/Shared'
+  tf_working_dir: 'Live-env/Shared/resource-group'
   # ARM_USE_OIDC: true
   # ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
   # ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
