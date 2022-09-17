@@ -14,8 +14,8 @@ terraform {
     ]
 
     env_vars = {
-      TERRAGRUNT_DOWNLOAD = find_in_parent_folders("_tmp/cache"),
-      TF_PLUGIN_CACHE_DIR = find_in_parent_folders("_tmp/plugins")
+      // TERRAGRUNT_DOWNLOAD = find_in_parent_folders("_tmp/cache"),
+      // TF_PLUGIN_CACHE_DIR = find_in_parent_folders("_tmp/plugins")
     }
   }
 }
@@ -87,8 +87,10 @@ remote_state {
     subscription_id      = local.backend_subscription_id
     resource_group_name  = local.backend_storage_resource_group_name
     storage_account_name = local.backend_storage_account_name
-    container_name       = "tfstate"
-    key                  = "bd-terragrunt-demo/${path_relative_to_include()}/${local.environment}/terraform.tfstate"
+    use_oidc             = true
+
+    container_name = "tfstate"
+    key            = "bd-terragrunt-demo/${path_relative_to_include()}/${local.environment}/terraform.tfstate"
   }
 }
 
