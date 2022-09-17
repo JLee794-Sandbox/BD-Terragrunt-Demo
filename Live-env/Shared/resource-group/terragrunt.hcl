@@ -12,7 +12,7 @@ terraform {
 }
 
 dependency "azure-naming" {
-  config_path                             = find_in_parent_folders("Shared/azure-naming")
+  config_path                             = "../azure-naming"
   mock_outputs_allowed_terraform_commands = ["validate", "plan", "plan-all"]
   mock_outputs = {
     name       = "rnd-uis-dev-eastus-01"
