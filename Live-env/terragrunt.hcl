@@ -87,7 +87,6 @@ remote_state {
     subscription_id      = local.backend_subscription_id
     resource_group_name  = local.backend_storage_resource_group_name
     storage_account_name = local.backend_storage_account_name
-    use_oidc             = true
 
     container_name = "tfstate"
     key            = "bd-terragrunt-demo/${path_relative_to_include()}/${local.environment}/terraform.tfstate"
