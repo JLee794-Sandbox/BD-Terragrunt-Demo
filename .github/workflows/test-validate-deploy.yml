@@ -31,6 +31,8 @@ jobs:
     name: test
     runs-on: ubuntu-latest
     strategy:
+      max-parallel: 1
+      fail-fast: true
       matrix:
         working_dir: [
           'Live-env/Shared',
@@ -39,7 +41,6 @@ jobs:
           # 'Live-env/Hub/App',
           # 'Live-env/Spoke/App'
           ]
-        max-parallel: 1
     steps:
       - uses: actions/checkout@v2
       # Install the latest version of Terragrunt CLI and configure the Terragrunt CLI configuration file with a Terragrunt Cloud user API token
