@@ -17,8 +17,9 @@ env:
   # ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
 permissions:
-      id-token: write
-      contents: read
+  id-token: write
+  contents: read
+
 jobs:
   terragrunt:
     # name:   ${{matrix.runner}} - ${{ matrix.environment }}
@@ -32,6 +33,7 @@ jobs:
     #       - environment: prod
     #         runner: ubuntu-18.04
     name: test
+    environment: dev
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 1
@@ -82,6 +84,7 @@ jobs:
         run: |
           az account show
           az group list
+          ${{ getIDToken() }}
           pwd
       # # Initialize a new or existing Terragrunt working directory by creating initial files, loading any remote state, downloading modules, etc.
       # - name: Terragrunt Init
@@ -96,7 +99,8 @@ jobs:
           ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
           ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
           ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-          ARM_USE_OIDC: true
+          ARM_USE_AZUREAD: true
+          ENV: stg
 
         # On push to main, build or change infrastructure according to Terragrunt configuration files
         # Note: It is recommended to set up a required "strict" status check in your repository for "Terragrunt Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
@@ -108,7 +112,8 @@ jobs:
           ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
           ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
           ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
-          ARM_USE_OIDC: true
+          ARM_USE_AZUREAD: true
+          ENV: stg
 
       # - name: 'Terragrunt Init'
       #   uses: the-commons-project/terragrunt-github-actions@master
