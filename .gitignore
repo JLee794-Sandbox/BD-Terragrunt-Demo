@@ -1,6 +1,8 @@
 # Ignore local cache dir
 _tmp
 
+.vscode
+
 # Local .terraform directories
 **/.terraform/*
 **/.terragrunt-cache

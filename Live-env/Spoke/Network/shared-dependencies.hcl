@@ -1,7 +1,6 @@
 dependency "azure-naming" {
   config_path = find_in_parent_folders("Shared/azure-naming")
 
-  skip_outputs = true
   # mock_outputs_allowed_terraform_commands = ["validate", "plan", "destroy"]
   mock_outputs = {
     name       = "rnd-uis-dev-eastus-01"
@@ -24,7 +23,6 @@ dependency "azure-naming" {
 dependency "resource-group" {
   config_path = find_in_parent_folders("Shared/resource-group")
 
-  skip_outputs = true
   # mock_outputs_allowed_terraform_commands = ["validate", "plan"]
   mock_outputs = {
     location = "eastus"

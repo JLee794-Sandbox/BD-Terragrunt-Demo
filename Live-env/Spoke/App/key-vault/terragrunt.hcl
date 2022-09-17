@@ -21,8 +21,8 @@ dependency "spoke-vnet" {
   }
 }
 
-dependency "subnet-saas" {
-  config_path = find_in_parent_folders("Spoke/Network/subnet-saas")
+dependency "subnet-aks" {
+  config_path = find_in_parent_folders("Spoke/Network/subnet-aks")
 
   mock_outputs_allowed_terraform_commands = ["validate", "plan"]
   mock_outputs = {
@@ -42,7 +42,7 @@ inputs = merge(
   local.shared_dependency_vars.inputs,
   {
     virtual_network_subnet_ids = [
-      dependency.subnet-saas.outputs.id
+      dependency.subnet-aks.outputs.id
     ]
   }
 )
