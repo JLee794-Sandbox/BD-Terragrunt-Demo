@@ -8,8 +8,8 @@ on:
   pull_request:
     branches: [ feature/cicd ]
 env:
-  tf_version: '0.36.1'
-  tg_version: 'v1.1.4'
+  tg_version: 'v0.36.1'
+  tf_version: 'v1.1.4'
   tf_working_dir: 'Live-env/Shared'
   ARM_USE_OIDC: true
   ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
@@ -35,10 +35,11 @@ jobs:
         working_dir: [
           'Live-env/Shared',
           'Live-env/Hub/Network',
-          'Live-env/Spoke/Network',
-          'Live-env/Hub/App',
-          'Live-env/Spoke/App'
+          # 'Live-env/Spoke/Network',
+          # 'Live-env/Hub/App',
+          # 'Live-env/Spoke/App'
           ]
+        max-parallel: 1
     steps:
       - uses: actions/checkout@v2
       # Install the latest version of Terragrunt CLI and configure the Terragrunt CLI configuration file with a Terragrunt Cloud user API token
