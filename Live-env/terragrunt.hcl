@@ -24,7 +24,7 @@ terraform {
 # TODO: Do further planning on multi-tenant/region scenarios around multiple provider configurations
 generate "provider" {
   path      = "provider.tf"
-  if_exists = "skip"
+  if_exists = "overwrite"
   contents  = <<EOF
 provider "azurerm" {
   use_oidc = true
