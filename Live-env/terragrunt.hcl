@@ -85,7 +85,6 @@ remote_state {
     if_exists = "overwrite"
   }
   config = {
-    use_oidc             = true
     subscription_id      = local.backend_subscription_id
     resource_group_name  = local.backend_storage_resource_group_name
     storage_account_name = local.backend_storage_account_name
