@@ -30,40 +30,82 @@ jobs:
     #         runner: ubuntu-18.04
     name: test
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        working_dir: [
+          'Live-env/Shared',
+          'Live-env/Hub/Network',
+          'Live-env/Spoke/Network',
+          'Live-env/Hub/App',
+          'Live-env/Spoke/App'
+          ]
     steps:
       - uses: actions/checkout@v2
+      # Install the latest version of Terragrunt CLI and configure the Terragrunt CLI configuration file with a Terragrunt Cloud user API token
+      - name: Setup Terraform ${{ env.tf_version }}
+        uses: hashicorp/setup-Terraform@v1
+        with:
+          terraform_version: ${{ env.tf_version }}
+          terraform_wrapper: true
+      - name: Setup Terraform version
+        run: terraform --version
+      - name: Setup Terraform wrapper path
+        run: which terraform
 
-      - name: 'Terragrunt Init'
-        uses: the-commons-project/terragrunt-github-actions@master
-        with:
-          tf_actions_version: ${{ env.tf_version }}
-          tg_actions_version: ${{ env.tg_version }}
-          tf_actions_subcommand: 'init'
-          tf_actions_working_dir: ${{ env.tf_working_dir }}
-          tf_actions_comment: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: 'Terragrunt Validate'
-        uses: the-commons-project/terragrunt-github-actions@master
-        with:
-          tf_actions_version: ${{ env.tf_version }}
-          tg_actions_version: ${{ env.tg_version }}
-          tf_actions_binary: 'terraform'
-          tf_actions_subcommand: 'validate'
-          tf_actions_working_dir: ${{ env.tf_working_dir }}
-          tf_actions_comment: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: 'Terragrunt Plan'
-        uses: the-commons-project/terragrunt-github-actions@master
-        with:
-          tf_actions_version: ${{ env.tf_version }}
-          tg_actions_version: ${{ env.tg_version }}
-          tf_actions_subcommand: 'plan'
-          tf_actions_working_dir: ${{ env.tf_working_dir }}
-          tf_actions_comment: true
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Setup Terragrunt ${{ env.tg_version }}
+        run: |
+          sudo wget -q -O /bin/terragrunt "https://github.com/gruntwork-io/terragrunt/releases/download/${{ env.tg_version }}/terragrunt_linux_amd64"
+          sudo chmod +x /bin/terragrunt
+          terragrunt -v
+
+      # Initialize a new or existing Terragrunt working directory by creating initial files, loading any remote state, downloading modules, etc.
+      - name: Terragrunt Init
+        run: terragrunt init --terragrunt-non-interactive
+        working-directory: ${{ matrix.working_dir }}
+
+      # Generates an execution plan for Terragrunt
+      - name: Terragrunt Plan
+        run: terragrunt run-all plan --terragrunt-non-interactive
+        working-directory: ${{ matrix.working_dir }}
+
+        # On push to main, build or change infrastructure according to Terragrunt configuration files
+        # Note: It is recommended to set up a required "strict" status check in your repository for "Terragrunt Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
+      - name: Terragrunt Apply
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        run: terragrunt apply-all --terragrunt-non-interactive
+        working-directory: ${{ matrix.working_dir }}
+
+      # - name: 'Terragrunt Init'
+      #   uses: the-commons-project/terragrunt-github-actions@master
+      #   with:
+      #     tf_actions_version: ${{ env.tf_version }}
+      #     tg_actions_version: ${{ env.tg_version }}
+      #     tf_actions_subcommand: 'init'
+      #     tf_actions_working_dir: ${{ env.tf_working_dir }}
+      #     tf_actions_comment: true
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # - name: 'Terragrunt Validate'
+      #   uses: the-commons-project/terragrunt-github-actions@master
+      #   with:
+      #     tf_actions_version: ${{ env.tf_version }}
+      #     tg_actions_version: ${{ env.tg_version }}
+      #     tf_actions_binary: 'terraform'
+      #     tf_actions_subcommand: 'validate'
+      #     tf_actions_working_dir: ${{ env.tf_working_dir }}
+      #     tf_actions_comment: true
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # - name: 'Terragrunt Plan'
+      #   uses: the-commons-project/terragrunt-github-actions@master
+      #   with:
+      #     tf_actions_version: ${{ env.tf_version }}
+      #     tg_actions_version: ${{ env.tg_version }}
+      #     tf_actions_subcommand: 'plan'
+      #     tf_actions_working_dir: ${{ env.tf_working_dir }}
+      #     tf_actions_comment: true
+      #   env:
+      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # - uses: hashicorp/setup-terraform@v1
       #   with:
