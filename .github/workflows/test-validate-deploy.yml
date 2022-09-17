@@ -56,7 +56,7 @@ jobs:
         uses: hashicorp/setup-Terraform@v1
         with:
           terraform_version: ${{ env.tf_version }}
-          terraform_wrapper: true
+          terraform_wrapper: false
       - name: Setup Terraform version
         run: terraform --version
       - name: Setup Terraform wrapper path
