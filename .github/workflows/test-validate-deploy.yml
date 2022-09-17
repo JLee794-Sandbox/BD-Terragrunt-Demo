@@ -60,10 +60,10 @@ jobs:
           sudo chmod +x /bin/terragrunt
           terragrunt -v
 
-      # Initialize a new or existing Terragrunt working directory by creating initial files, loading any remote state, downloading modules, etc.
-      - name: Terragrunt Init
-        run: terragrunt init --terragrunt-non-interactive
-        working-directory: ${{ matrix.working_dir }}
+      # # Initialize a new or existing Terragrunt working directory by creating initial files, loading any remote state, downloading modules, etc.
+      # - name: Terragrunt Init
+      #   run: terragrunt init --terragrunt-non-interactive
+      #   working-directory: ${{ matrix.working_dir }}
 
       # Generates an execution plan for Terragrunt
       - name: Terragrunt Plan
