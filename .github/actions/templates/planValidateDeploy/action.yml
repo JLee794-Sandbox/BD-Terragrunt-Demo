@@ -9,19 +9,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-    # # Install the latest version of Terragrunt CLI and configure the Terragrunt CLI configuration file with a Terragrunt Cloud user API token
-    # - name: Setup Terraform ${{ env.tf_version }}
-    #   uses: hashicorp/setup-Terraform@v1
-    #   with:
-    #     terraform_version: ${{ env.tf_version }}
-    #     terraform_wrapper: false
-
-    # - name: Setup Terragrunt ${{ env.tg_version }}
-    #   run: |
-    #     sudo wget -q -O /bin/terragrunt "https://github.com/gruntwork-io/terragrunt/releases/download/${{ env.tg_version }}/terragrunt_linux_amd64"
-    #     sudo chmod +x /bin/terragrunt
-    #     terragrunt -v
-
     # Generates an execution plan for Terragrunt
     - name: Terragrunt Plan
       id: terragrunt_plan
