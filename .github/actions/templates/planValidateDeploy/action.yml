@@ -36,6 +36,7 @@ runs:
     - name: Terragrunt Plan
       id: terragrunt_plan
       run: terragrunt run-all plan --terragrunt-non-interactive
+      shell: bash
       continue-on-error: true
       working-directory: ${{ inputs.working_dir }}
       env:
@@ -52,6 +53,7 @@ runs:
       environment: 'prd'
       run: terragrunt apply-all --terragrunt-non-interactive
       working-directory: ${{ inputs.working_dir }}
+      shell: bash
       env:
         ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
         ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
