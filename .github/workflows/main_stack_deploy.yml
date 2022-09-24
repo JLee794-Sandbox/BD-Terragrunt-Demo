@@ -24,6 +24,7 @@ jobs:
   job_terragrunt_deploy:
     runs-on: ubuntu-latest
     name: 'Terragrunt Plan and Deploy'
+    secrets: inherit
     strategy:
       max-parallel: 1
       fail-fast: false
@@ -45,7 +46,6 @@ jobs:
 
       - name: Plan, Validate, and Deploy Terragrunt for ${{ matrix.working_dir }}
         uses: ./.github/actions/templates/planValidateDeploy
-        secrets: inherit
         with:
           working_dir: ${{ matrix.working_dir }}
 
