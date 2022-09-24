@@ -37,10 +37,10 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Setup Terraform and Terragrunt
-        uses: ./.github/actions/templates/setupEnvironment.yml
+        uses: ./.github/actions/templates/setupEnvironment
 
       - name: Plan, Validate, and Deploy Terragrunt for ${{ matrix.working_dir }}
-        uses: ./.github/actions/templates/planValidateDeploy.yml
+        uses: ./.github/actions/templates/planValidateDeploy
         with:
           working_dir: ${{ matrix.working_dir }}
 
