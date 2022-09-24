@@ -1,0 +1,59 @@
+name: Terragrunt Deploy
+
+inputs:
+  working_dir:
+    description: 'Terragrunt working directory'
+    required: true
+    default: 'Live-env/Shared/resource-group'
+
+on:
+  workflow_call:
+    outputs:
+      working_dir: ${{ steps.}}
+
+
+        description: 'Working directory'
+        required: true
+        type: string
+
+runs:
+  using: "composite"
+  steps:
+    # # Install the latest version of Terragrunt CLI and configure the Terragrunt CLI configuration file with a Terragrunt Cloud user API token
+    # - name: Setup Terraform ${{ env.tf_version }}
+    #   uses: hashicorp/setup-Terraform@v1
+    #   with:
+    #     terraform_version: ${{ env.tf_version }}
+    #     terraform_wrapper: false
+
+    # - name: Setup Terragrunt ${{ env.tg_version }}
+    #   run: |
+    #     sudo wget -q -O /bin/terragrunt "https://github.com/gruntwork-io/terragrunt/releases/download/${{ env.tg_version }}/terragrunt_linux_amd64"
+    #     sudo chmod +x /bin/terragrunt
+    #     terragrunt -v
+
+    # Generates an execution plan for Terragrunt
+    - name: Terragrunt Plan
+      id: terragrunt_plan
+      run: terragrunt run-all plan --terragrunt-non-interactive
+      continue-on-error: true
+      working-directory: ${{ inputs.working_dir }}
+      env:
+        ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+        ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+        ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+        ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+
+      # On push to main, build or change infrastructure according to Terragrunt configuration files
+      # Note: It is recommended to set up a required "strict" status check in your repository for "Terragrunt Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
+    - name: Terragrunt Apply
+      id: terragrunt_apply
+      if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+      environment: 'prd'
+      run: terragrunt apply-all --terragrunt-non-interactive
+      working-directory: ${{ inputs.working_dir }}
+      env:
+        ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+        ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+        ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+        ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
