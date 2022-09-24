@@ -87,9 +87,9 @@ jobs:
       #     ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
       #     ENV: stg
 
-  comment:
+  job_pr_comment:
     runs-on: ubuntu-latest
-    needs: terragrunt
+    needs: job_terragrunt_deploy
     if: github.event_name == 'pull_request'
     steps:
       - uses: actions/github-script@v5
