@@ -27,7 +27,6 @@ runs:
     - name: Terragrunt Apply
       id: terragrunt_apply
       if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-      environment: 'prd'
       run: terragrunt apply-all --terragrunt-non-interactive
       working-directory: ${{ inputs.working_dir }}
       shell: bash
