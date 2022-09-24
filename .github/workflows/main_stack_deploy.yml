@@ -10,10 +10,7 @@ on:
 env:
   tg_version: 'v0.36.1'
   tf_version: 'v1.1.4'
-  ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
-  ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
-  ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-  ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+
   ENV: stg
 
 permissions:
@@ -24,7 +21,6 @@ jobs:
   job_terragrunt_deploy:
     runs-on: ubuntu-latest
     name: 'Terragrunt Plan and Deploy'
-    secrets: inherit
     strategy:
       max-parallel: 1
       fail-fast: false
@@ -48,7 +44,11 @@ jobs:
         uses: ./.github/actions/templates/planValidateDeploy
         with:
           working_dir: ${{ matrix.working_dir }}
-
+          ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+          ENV: ${{ env.ENV }}
       # # Install the latest version of Terragrunt CLI and configure the Terragrunt CLI configuration file with a Terragrunt Cloud user API token
       # - name: Setup Terraform ${{ env.tf_version }}
       #   uses: hashicorp/setup-Terraform@v1
