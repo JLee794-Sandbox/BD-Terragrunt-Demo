@@ -45,6 +45,7 @@ jobs:
 
       - name: Plan, Validate, and Deploy Terragrunt for ${{ matrix.working_dir }}
         uses: ./.github/actions/templates/planValidateDeploy
+        secrets: inherit
         with:
           working_dir: ${{ matrix.working_dir }}
 

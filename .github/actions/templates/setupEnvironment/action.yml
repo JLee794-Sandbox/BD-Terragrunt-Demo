@@ -3,6 +3,9 @@ name: Install & Setup Terraform and Terragrunt on Agent
 runs:
   using: "composite"
   steps:
+    - name: 'Setup agent'
+      shell: bash
+      run: echo '::group::Setup agent'
     # Install the latest version of Terragrunt CLI and configure the Terragrunt CLI configuration file with a Terragrunt Cloud user API token
     - name: Setup Terraform ${{ env.tf_version }}
       uses: hashicorp/setup-Terraform@v1
@@ -15,4 +18,6 @@ runs:
         sudo wget -q -O /bin/terragrunt "https://github.com/gruntwork-io/terragrunt/releases/download/${{ env.tg_version }}/terragrunt_linux_amd64"
         sudo chmod +x /bin/terragrunt
         terragrunt -v
+
+        echo '::endgroup::'
       shell: bash
